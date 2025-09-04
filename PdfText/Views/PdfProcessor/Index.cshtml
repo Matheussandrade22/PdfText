@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "PDF Selecionável";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post" enctype="multipart/form-data" asp-controller="PdfProcessor" asp-action="Upload">
+    <div class="form-group">
+        <label for="File">Escolha o arquivo PDF</label><br />
+        <input type="file" name="File" id="File" accept=".pdf" required />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Enviar PDF</button>
+</form>
+
+@if (ViewBag.DownloadFileName != null)
+{
+    <div class="alert alert-success mt-3">
+        PDF selecionável gerado! <a href="@Url.Action("Download", "PdfProcessor", new { fileName = ViewBag.DownloadFileName })">Clique aqui para baixar</a>
+    </div>
+}
+
+@if (ViewBag.ExtractedText != null)
+{
+    <h3 class="mt-4">Texto extraído:</h3>
+    <textarea class="form-control" rows="15" readonly>@ViewBag.ExtractedText</textarea>
+}
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-warning mt-3">@ViewBag.Message</div>
+}
